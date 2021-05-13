@@ -30,7 +30,6 @@ jobs:
       uses: alexanderdamiani/pylinter@v1.1.1
       with:
         python-root: '.'
-        flake8-flags: '--count --show-source --statistics'
         mypy-flags: '--ignore-missing-imports'
         fail-on-isort: false
     - name: Fix isort errors
