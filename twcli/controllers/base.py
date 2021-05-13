@@ -1,4 +1,5 @@
 from cement import Controller, ex
+from textwrap import wrap
 from cement.utils.version import get_version_banner
 from ..core.version import get_version
 
@@ -34,26 +35,57 @@ class Base(Controller):
 
 
     @ex(
-        help='example sub command1',
+        help='\n'.join(wrap('An option price calculator for a single contract. '
+                            'Default args replicate an example from the '
+                            'QuantLib documentation. ')),
 
-        # sub-command level arguments. ex: 'twcli command1 --foo bar'
+        # the default args calculate a price for an example from QuantLib docs
         arguments=[
-            ### add a sample foo option under subcommand namespace
-            ( [ '-f', '--foo' ],
-              { 'help' : 'notorious foo option',
-                'action'  : 'store',
-                'dest' : 'foo' } ),
+            ( [ '-pu', '--price-underlying' ],
+              { 'help' : 'the price of the underlying asset (default = 100)',
+                'action'  : 'store', 'default':100.0,
+                'dest' : 'price_underlying' } ),
+            ( [ '-ps', '--price-strike' ],
+              { 'help' : 'the strike price of the contract (default = 100)',
+                'action'  : 'store', 'default':100,
+                'dest' : 'price_strike' } ),
+            ( [ '-vl', '--volatility' ],
+              { 'help' : 'the volatility assumption to use (default = 0.2)',
+                'action'  : 'store', 'default':0.2,
+                'dest' : 'volatility' } ),
+            ( [ '-rf', '--rate-risk-free' ],
+              { 'help' : 'the risk free rate (default = 0.01)',
+                'action'  : 'store', 'default':0.01,
+                'dest' : 'rate_risk_free' } ),
+            ( [ '-dx', '--date-expiration' ],
+              { 'help' : 'expiration date of the contract (default = 2014-06-07)',
+                'action'  : 'store', 'default':'2017-06-07',
+                'dest' : 'date_expiration' } ),
+            ( [ '-de', '--date-evaluation' ],
+              { 'help' : 'evaluation date of contract price (default = 2014-03-07)',
+                'action'  : 'store', 'default':'2017-03-07',
+                'dest' : 'date_evaluation' } ),
+            ( [ '-ct', '--contract-type' ],
+              { 'help' : 'the contract type, e.g. call or put (default = call)',
+                'action'  : 'store', 'default':'call',
+                'dest' : 'option_type' } ),
+            ( [ '-et', '--exercise-type' ],
+              { 'help' : "exercise type; 'european' or 'american' (default = european)",
+                'action'  : 'store', 'default':'european',
+                'dest' : 'exercise_type' } ),
         ],
+        aliases=['omod'],
     )
-    def command1(self):
-        """Example sub-command."""
-
-        data = {
-            'foo' : 'bar',
-        }
-
-        ### do something with arguments
-        if self.app.pargs.foo is not None:
-            data['foo'] = self.app.pargs.foo
-
-        self.app.render(data, 'command1.jinja2')
+    def model_opt(self):
+        from ..core.quantlib_tools import models 
+        pa = self.app.pargs
+        args = dict(price_underlying=pa.price_underlying,
+                    price_strike=pa.price_strike, volatility=pa.volatility,
+                    rate_risk_free=pa.rate_risk_free,
+                    date_expiration=pa.date_expiration,
+                    date_evaluation=pa.date_evaluation,
+                    option_type=pa.option_type, exercise_type=pa.exercise_type,)
+        mod = models.Model(**args)
+        print(f"    * calculated price = ${mod.option.NPV():.3f}")
+        for k,v in args.items():
+            print(f"    * {k} = {v}")
