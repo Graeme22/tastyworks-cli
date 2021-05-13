@@ -55,19 +55,6 @@ $ make dist
 $ make dist-upload
 ```
 
-## Deployments
-
-### Docker
-
-Included is a basic `Dockerfile` for building and distributing `tastyworks-cli`,
-and can be built with the included `make` helper:
-
-```
-$ make docker
-
-$ docker run -it twcli --help
-```
-
 ### Usage
 Project is still in early development.
 Conceptually the CLI should be split into the following subcomponents:

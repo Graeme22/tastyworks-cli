@@ -21,15 +21,18 @@ class Base(Controller):
 
         # controller level arguments. ex: 'twcli --version'
         arguments = [
-            ### add a version banner
-            ( [ '-v', '--version' ],
-              { 'action'  : 'version',
-                'version' : VERSION_BANNER } ),
+            # add a version banner
+            (
+                ['-v', '--version'],
+                {
+                    'action': 'version',
+                    'version': VERSION_BANNER
+                }
+            ),
         ]
 
     def _default(self):
         """Default action if no sub-command is passed."""
-
         self.app.args.print_help()
 
 
@@ -38,21 +41,24 @@ class Base(Controller):
 
         # sub-command level arguments. ex: 'twcli command1 --foo bar'
         arguments=[
-            ### add a sample foo option under subcommand namespace
-            ( [ '-f', '--foo' ],
-              { 'help' : 'notorious foo option',
-                'action'  : 'store',
-                'dest' : 'foo' } ),
+            # add a sample foo option under subcommand namespace
+            (
+                ['-f', '--foo'],
+                {
+                    'help': 'notorious foo option',
+                    'action': 'store',
+                    'dest': 'foo'
+                }
+            ),
         ],
     )
     def command1(self):
         """Example sub-command."""
-
         data = {
             'foo' : 'bar',
         }
 
-        ### do something with arguments
+        # do something with arguments
         if self.app.pargs.foo is not None:
             data['foo'] = self.app.pargs.foo
 

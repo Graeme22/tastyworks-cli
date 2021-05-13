@@ -1,5 +1,6 @@
 from cement import Controller, ex
 
+
 class Option(Controller):
     class Meta:
         label = 'option'

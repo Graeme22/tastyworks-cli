@@ -47,7 +47,7 @@ class TastyworksCLI(App):
         ]
 
 
-class TastyworksCLITest(TestApp,TastyworksCLI):
+class TastyworksCLITest(TestApp, TastyworksCLI):
     """A sub-class of TastyworksCLI that is better suited for testing."""
 
     class Meta:
