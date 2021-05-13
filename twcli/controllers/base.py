@@ -35,7 +35,6 @@ class Base(Controller):
         """Default action if no sub-command is passed."""
         self.app.args.print_help()
 
-
     @ex(
         help='example sub command1',
 
@@ -55,7 +54,7 @@ class Base(Controller):
     def command1(self):
         """Example sub-command."""
         data = {
-            'foo' : 'bar',
+            'foo': 'bar',
         }
 
         # do something with arguments
