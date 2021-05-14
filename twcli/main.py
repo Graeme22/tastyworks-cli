@@ -42,9 +42,7 @@ class TastyworksCLI(App):
         output_handler = 'jinja2'
 
         # register handlers
-        handlers = [
-            Base, Option
-        ]
+        handlers = [ Base, Option ]
 
 
 class TastyworksCLITest(TestApp, TastyworksCLI):
