@@ -26,21 +26,14 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
     - name: Lint with flake8
-      uses: alexanderdamiani/pylinter@v1.1.1
-      with:
-        python-root: 'twcli'
-        mypy-flags: '--ignore-missing-imports'
-        fail-on-isort: false
-    - name: Fix isort errors
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A && git diff-index --cached --quiet HEAD || git commit -m "auto isort"
-    - name: Push automatic changes
-      uses: ad-m/github-push-action@v0.5.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        python -m flake8
+    - name: Type check with mypy
+      run: |
+        find . -name "*.py" -print0 | xargs -0 mypy
+    - name: Sort with isort
+      run: |
+        isort --recursive --diff
     - name: Test with pytest
       run: |
-        python -m pytest
+        python -m pytest --cov --cov-fail-under=100
