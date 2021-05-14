@@ -1,4 +1,5 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
+
 from twcli.core.version import get_version
 
 VERSION = get_version()
