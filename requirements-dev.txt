@@ -3,6 +3,9 @@ pytest-cov
 coverage
 flake8
 isort
-twine>=1.11.0
-setuptools>=38.6.0
-wheel>=0.31.0
+twine
+setuptools
+wheel
+jinja2
+colorlog
+pyyaml
