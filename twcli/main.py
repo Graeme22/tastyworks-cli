@@ -8,7 +8,6 @@ from .controllers.options import Option
 CONFIG = init_defaults('twcli')
 CONFIG['twcli']['foo'] = 'bar'
 
-
 class TastyworksCLI(App):
     """tastyworks-cli primary application."""
 
@@ -41,10 +40,7 @@ class TastyworksCLI(App):
         output_handler = 'jinja2'
 
         # register handlers
-        handlers = [
-            Base,
-            Option
-        ]
+        handlers = [ Base, Option ]
 
 
 class TastyworksCLITest(TestApp, TastyworksCLI):
