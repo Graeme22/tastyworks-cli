@@ -61,4 +61,4 @@ class Base(Controller):
         if self.app.pargs.foo is not None:
             data['foo'] = self.app.pargs.foo
 
-            self.app.render(data, 'command1.jinja2')
+        self.app.render(data, 'command1.jinja2')

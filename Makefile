@@ -1,4 +1,4 @@
-.PHONY: clean venv test dist dist-upload
+.PHONY: clean venv test
 
 clean:
 	find . -name '*.py[co]' -delete
@@ -8,20 +8,8 @@ venv:
 	env/bin/pip install -r requirements.txt
 	env/bin/pip install -r requirements-dev.txt
 	env/bin/python setup.py develop
-	@echo "venv setup complete. Activate using: source env/bin/activate"
 
 test:
-	python -m pytest \
-		-v \
-		--cov=twcli \
-		--cov-report=term \
-		--cov-report=html:coverage-report \
-		tests/
-
-dist: clean
-	rm -rf dist/*
-	python setup.py sdist
-	python setup.py bdist_wheel
-
-dist-upload:
-	twine upload dist/*
+	isort --check --diff twcli/ tests/
+	flake8 --count --show-source --statistics twcli/ tests/
+	pytest --cov=twcli --cov-report=term-missing tests/

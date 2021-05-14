@@ -2,7 +2,6 @@ from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
 
 from .controllers.base import Base
-from .controllers.options import Option
 from .core.exc import TastyworksCLIError
 
 # configuration defaults
@@ -42,14 +41,16 @@ class TastyworksCLI(App):
         output_handler = 'jinja2'
 
         # register handlers
-        handlers = [Base, Option]
+        handlers = [
+            Base
+        ]
 
 
 class TastyworksCLITest(TestApp, TastyworksCLI):
     """A sub-class of TastyworksCLI that is better suited for testing."""
 
     class Meta:
-        label = 'tw'
+        label = 'twcli'
 
 
 def main():
