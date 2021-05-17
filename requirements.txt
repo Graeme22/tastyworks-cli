@@ -52,4 +52,3 @@ webencodings==0.5.1
 yarl==1.6.3
 zipp==3.4.1
 QuantLib==1.22
-pandas==1.1.3
