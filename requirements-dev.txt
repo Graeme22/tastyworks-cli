@@ -1,5 +1,9 @@
+-r requirements.txt
+
 pytest
 pytest-cov
 coverage
 flake8
 isort
+setuptools>=38.6.0
+wheel>=0.31.0
