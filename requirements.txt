@@ -8,7 +8,6 @@ aiohttp==3.7.4.post0
 async-timeout==3.0.1
 attrs==20.3.0
 bleach==3.3.0
-cement==3.0.4
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
@@ -42,7 +41,6 @@ requests-toolbelt==0.9.1
 rfc3986==1.4.0
 SecretStorage==3.3.1
 six==1.15.0
-tastyworks==4
 toml==0.10.2
 tqdm==4.59.0
 twine==3.4.1
