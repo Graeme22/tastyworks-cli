@@ -1,5 +1,5 @@
 """Apply unit test to models"""
-from . import models as sc
+from src.quant import models as sc
 
 
 def test_model():
