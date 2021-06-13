@@ -5,7 +5,7 @@ from dateutil.relativedelta import relativedelta
 from matplotlib.dates import (DateFormatter, DayLocator, MonthLocator,
                               YearLocator)
 
-from .utils import TastyworksCLIError
+from ..utils import TastyworksCLIError
 
 _month_fmt = DateFormatter('%b')
 _year_fmt = DateFormatter('%Y')
