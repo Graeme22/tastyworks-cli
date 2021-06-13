@@ -1,73 +1,37 @@
-from cement import App, TestApp
-from cement.core.exc import CaughtSignal
+import click
 
-from .controller import BaseController
-from .crypto import CryptoController
-from .future import FutureController
-from .option import OptionController
-from .order import OrderController
-from .portfolio import PortfolioController
-from .quant import QuantController
-from .stock import StockController
-from .utils import TastyworksCLIError
-from .watchlist import WatchlistController
+from .utils import VERSION
 
-
-class TastyworksCLI(App):
-    """tastyworks-cli primary application."""
-
-    class Meta:
-        label = 'tw'
-
-        # call sys.exit() on close
-        exit_on_close = True
-
-        # register handlers
-        handlers = [
-            BaseController,
-            OptionController,
-            StockController,
-            FutureController,
-            CryptoController,
-            PortfolioController,
-            WatchlistController,
-            OrderController,
-            QuantController,
-        ]
-
-
-class TastyworksCLITest(TestApp, TastyworksCLI):
-    """A sub-class of TastyworksCLI that is better suited for testing."""
-
-    class Meta:
-        label = 'tw'
-
-
+@click.group()
+@click.version_option(VERSION)
 def main():
-    with TastyworksCLI() as app:
-        try:
-            app.run()
+    pass
 
-        except AssertionError as e:
-            print('AssertionError > %s' % e.args[0])
-            app.exit_code = 1
+@main.group(chain=True, help='Buy, sell, and trade options.')
+def option():
+    pass
 
-            if app.debug is True:
-                import traceback
-                traceback.print_exc()
+@option.command(help='Buy an option with the given parameters.')
+@click.argument('quantity', type=int)
+@click.argument('underlying', type=str)
+@click.argument('price', type=float)
+@click.option('-s', '--strike', type=float)
+def buy(quantity: int, underlying: str, price: float, strike: float):
+    print(f'Buying {quantity}x {underlying} ~ {strike:.2f} @ ${price:.2f}')
 
-        except TastyworksCLIError as e:
-            print('TastyworksCLIError > %s' % e.args[0])
-            app.exit_code = 1
+@option.command(help='Sell an option with the given parameters.')
+@click.argument('quantity', type=int)
+@click.argument('underlying', type=str)
+@click.argument('price', type=float)
+@click.option('-s', '--strike', type=float)
+def sell(quantity: int, underlying: str, price: float, strike: float):
+    print(f'Selling {quantity}x {underlying} ~ {strike:.2f} @ ${price:.2f}')
 
-            if app.debug is True:
-                import traceback
-                traceback.print_exc()
-
-        except CaughtSignal as e:
-            # Default Cement signals are SIGINT and SIGTERM, exit 0 (non-error)
-            print('\n%s' % e)
-            app.exit_code = 0
+@option.command(help='Fetch and display an options chain.')
+@click.argument('underlying', type=str)
+@click.option('-e', '--expiration', type=str)
+def chain(underlying: str, expiration: str):
+    print(f'Options chain for {underlying} on {expiration}:')
 
 
 if __name__ == '__main__':
