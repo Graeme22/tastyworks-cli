@@ -1,7 +1,7 @@
 import pandas as pd
 from cement import Controller, ex
 
-from .plot.base import Portfolio
+from .plot import Portfolio
 from .utils import VERSION
 
 
@@ -28,7 +28,6 @@ class BaseController(Controller):
         ]
 
     def _default(self):
-        """Default action if no sub-command is passed."""
         self.app.args.print_help()
 
     @ex(

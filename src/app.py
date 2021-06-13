@@ -2,15 +2,15 @@ from cement import App, TestApp
 from cement.core.exc import CaughtSignal
 
 from .controller import BaseController
-from .crypto.controller import CryptoController
-from .future.controller import FutureController
-from .option.controller import OptionController
-from .order.controller import OrderController
-from .portfolio.controller import PortfolioController
-from .quant.controller import QuantController
-from .stock.controller import StockController
+from .crypto import CryptoController
+from .future import FutureController
+from .option import OptionController
+from .order import OrderController
+from .portfolio import PortfolioController
+from .quant import QuantController
+from .stock import StockController
 from .utils import TastyworksCLIError
-from .watchlist.controller import WatchlistController
+from .watchlist import WatchlistController
 
 
 class TastyworksCLI(App):
