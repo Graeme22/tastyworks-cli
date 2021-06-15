@@ -1,5 +1,4 @@
 import click
-import pandas as pd
 
 from .future.commands import future
 from .option.commands import option

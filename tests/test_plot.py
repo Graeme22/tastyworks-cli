@@ -36,7 +36,7 @@ def test_twcli_plot_netliq():
 def test_plot_pandl_percent():
     pf = gen_portfolio()
     pf_tmp = gen_portfolio(True)
-    nl = pf_tmp._get_starting_net_liq('1y')
+    nl = pf_tmp._get_starting_net_liq('all')
     val = pf.plot('all', starting_net_liq=nl)
 
     assert round(val, 2) == _REALIZED_PANDL_PERCENT
@@ -45,7 +45,7 @@ def test_plot_pandl_percent():
 def test_plot_netliq_percent():
     pf = gen_portfolio(True)
     pf_tmp = gen_portfolio(True)
-    nl = pf_tmp._get_starting_net_liq('6m')
+    nl = pf_tmp._get_starting_net_liq('all')
     val = pf.plot('all', starting_net_liq=nl)
 
     assert round(val, 2) == _NET_LIQUIDITY_PERCENT

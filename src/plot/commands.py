@@ -2,7 +2,6 @@ import click
 import pandas as pd
 
 from .csv import Portfolio
-from ..utils import VERSION
 
 
 @click.command(help='Chart your net liquidity or realized profit/loss over time.')
