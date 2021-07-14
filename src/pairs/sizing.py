@@ -104,10 +104,6 @@ def size(price_left=1, price_right=1, vol_left=1, vol_right=1, unit_size_left=1,
         (vol_left * price_left * multiplier_left * unit_size_left) / \
         (vol_right * price_right * multiplier_right)
 
-    msg = 'Volatility-weighted equity should equate.'
-    assert vol_left * price_left * multiplier_left * unit_size_left == \
-        vol_right * price_right * multiplier_right * unit_size_right, msg
-
     pair_specs = dict(vol_left=vol_left, price_left=price_left,
                       multiplier_left=multiplier_left,
                       multiplier_right=multiplier_right,
