@@ -1,3 +1,7 @@
+# NEW REPOSITORY LOCATION
+
+This repository has been moved! It is now hosted under the `tastyware` organization here: https://github.com/tastyware/tastyworks-cli
+
 # tastyworks-cli
 
 An easy-to-use command line interface for Tastyworks!
